@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Hot Deals</string>
+    <string name="not_selected">notSelected</string>
+    <string name="selected">selected</string>
 </resources>

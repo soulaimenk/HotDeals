@@ -12,8 +12,8 @@ import com.soulaimenk.hotdeals.R;
 /**
  * Created by Soulaimen on 22/07/2016.
  */
-public class AddPromoFragment extends Fragment {
-    public AddPromoFragment() {
+public class AddDiscountFragment extends Fragment {
+    public AddDiscountFragment() {
         // Required empty public constructor
     }
 
@@ -26,6 +26,6 @@ public class AddPromoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.tab_add_promo, container, false);
+        return inflater.inflate(R.layout.tab_add_discount, container, false);
     }
 }

@@ -1,7 +1,6 @@
 package com.soulaimenk.hotdeals.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -14,8 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.soulaimenk.hotdeals.R;
 import com.soulaimenk.hotdeals.adapters.ViewPagerAdapter;
+import com.soulaimenk.hotdeals.fragments.AddDiscountFragment;
 import com.soulaimenk.hotdeals.fragments.AddNewsFragment;
-import com.soulaimenk.hotdeals.fragments.AddPromoFragment;
 
 /**
  * Created by Soulaimen on 19/07/2016.
@@ -51,8 +50,8 @@ public class ShopMainActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Intent authenticationIntent = new Intent(context, AuthenticationActivity.class);
-                    startActivity(authenticationIntent);
+                  //  Intent authenticationIntent = new Intent(context, AuthenticationActivity.class);
+                  //  startActivity(authenticationIntent);
                     finish();
                 }
                 // ...
@@ -75,7 +74,7 @@ public class ShopMainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new AddNewsFragment(), "News");
-        adapter.addFragment(new AddPromoFragment(), "Promos");
+        adapter.addFragment(new AddDiscountFragment(), "Discount");
        // adapter.addFragment(new FavoritesFragment(), "Favorites");
         viewPager.setAdapter(adapter);
     }

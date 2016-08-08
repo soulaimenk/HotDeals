@@ -1,27 +1,31 @@
 package com.soulaimenk.hotdeals.wrappers;
 
+import java.util.Date;
+
 /**
  * Created by Soulaimen on 20/07/2016.
  */
-public class NewProduct {
+public class NewArticle {
     private String uid;
     private String title;
     private String imageBase64;
     private String description;
-    private String date;
+    private Date date;
     private String latitude;
     private String longitude;
+    private int likes;
 
-    public NewProduct() {
+    public NewArticle() {
     }
 
-    public NewProduct(String title, String description, String date, String latitude, String longitude, String imageBase64) {
+    public NewArticle(String title, String description, Date date, String latitude, String longitude, String imageBase64) {
         this.title = title;
         this.imageBase64 = imageBase64;
         this.description = description;
         this.date = date;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.likes = 0;
     }
 
     public String getUid() {
@@ -56,11 +60,11 @@ public class NewProduct {
         this.description = description;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -80,5 +84,11 @@ public class NewProduct {
         this.longitude = longitude;
     }
 
+    public int getLikes() {
+        return likes;
+    }
 
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 }

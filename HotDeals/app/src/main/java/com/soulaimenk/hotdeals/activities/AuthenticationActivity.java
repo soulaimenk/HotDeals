@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.soulaimenk.hotdeals.Constants;
 import com.soulaimenk.hotdeals.R;
 import com.soulaimenk.hotdeals.wrappers.UserType;
@@ -99,7 +100,8 @@ public class AuthenticationActivity extends Activity implements View.OnClickList
                                 switch (userType.getType()) {
                                     case Constants.TYPE_USER:
                                         Intent userMainActivityIntent = new Intent(context, UserMainActivity.class);
-                                        userMainActivityIntent.putExtra(Constants.USER_TYPE_TAG, Constants.TYPE_USER);
+                                        Log.e(TAG,"UserType Json"+  new Gson().toJson(userType));
+                                        userMainActivityIntent.putExtra(Constants.USER_TYPE_TAG, new Gson().toJson(userType));
                                         startActivity(userMainActivityIntent);
                                         finish();
                                         break;
@@ -112,9 +114,7 @@ public class AuthenticationActivity extends Activity implements View.OnClickList
                                 }
 
                             } else {
-                               /* Intent authenticationActivityIntent = new Intent(context, AuthenticationActivity.class);
-                                startActivity(authenticationActivityIntent);
-                                finish();*/
+
                                 Toast.makeText(AuthenticationActivity.this, "Authentication : UserType Null", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -178,7 +178,6 @@ public class AuthenticationActivity extends Activity implements View.OnClickList
             startActivityForResult(signInIntent, RC_SIGN_IN);
         }
     }
-
     @Override
     public void onStart() {
         super.onStart();

@@ -1,7 +1,6 @@
 package com.soulaimenk.hotdeals.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -41,8 +40,8 @@ public class MainActivity extends FragmentActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Intent authenticationIntent = new Intent(context, AuthenticationActivity.class);
-                    startActivity(authenticationIntent);
+                   // Intent authenticationIntent = new Intent(context, AuthenticationActivity.class);
+                   // startActivity(authenticationIntent);
                     finish();
                 }
                 // ...

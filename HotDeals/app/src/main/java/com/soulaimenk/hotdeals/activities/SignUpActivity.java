@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 import com.soulaimenk.hotdeals.Constants;
 import com.soulaimenk.hotdeals.R;
 import com.soulaimenk.hotdeals.wrappers.UserType;
@@ -37,7 +38,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener {
     private ImageButton mShopTypeBtn;
     private String mEmailStr;
     private String mPasswordStr;
-
+    private Dialog typeChooserDialog ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +77,12 @@ public class SignUpActivity extends Activity implements View.OnClickListener {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
                 Toast.makeText(SignUpActivity.this, TAG + " UserUid: " + user.getUid(), Toast.LENGTH_SHORT).show();
-                UserType userType = new UserType(user.getUid(), Constants.TYPE_USER);
+                UserType userType = new UserType(user.getUid(), user.getEmail(), Constants.TYPE_USER);
                 mDatabase.child(Constants.FB_USER_TYPE).child(user.getUid()).setValue(userType);
                 Intent userMainActivityIntent = new Intent(context, UserMainActivity.class);
-                userMainActivityIntent.putExtra(Constants.USER_TYPE_TAG, Constants.TYPE_USER);
+                userMainActivityIntent.putExtra(Constants.USER_TYPE_TAG, new Gson().toJson(userType));
                 startActivity(userMainActivityIntent);
+                typeChooserDialog.dismiss();
                 finish();
             }
         }
@@ -88,11 +90,12 @@ public class SignUpActivity extends Activity implements View.OnClickListener {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
                 Toast.makeText(SignUpActivity.this, TAG + " UserUid: " + user.getUid(), Toast.LENGTH_SHORT).show();
-                UserType userType = new UserType(user.getUid(), Constants.TYPE_SHOP);
+                UserType userType = new UserType(user.getUid(), user.getEmail(), Constants.TYPE_SHOP);
                 mDatabase.child(Constants.FB_USER_TYPE).child(user.getUid()).setValue(userType);
                 Intent shopMainActivityIntent = new Intent(context, ShopMainActivity.class);
                 shopMainActivityIntent.putExtra(Constants.USER_TYPE_TAG, Constants.TYPE_SHOP);
                 startActivity(shopMainActivityIntent);
+                typeChooserDialog.dismiss();
                 finish();
             }
         }
@@ -109,7 +112,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener {
                             Log.w(TAG, "signInWithEmail", task.getException());
                             Toast.makeText(context, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                        } else if (task.isSuccessful()) {
+                        } else {
                             ChooseTypeOfUser();
                         }
                         // ...
@@ -119,7 +122,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener {
 
     private void ChooseTypeOfUser() {
         Toast.makeText(SignUpActivity.this, "Choosing User Type", Toast.LENGTH_SHORT).show();
-        Dialog typeChooserDialog = new Dialog(this);
+        typeChooserDialog = new Dialog(this);
         typeChooserDialog.setCancelable(false);
         typeChooserDialog.setContentView(R.layout.dialog_signup_user_type);
         mUserTypeBtn = (ImageButton) typeChooserDialog.findViewById(R.id.userType);
